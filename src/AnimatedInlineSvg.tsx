@@ -4,11 +4,14 @@ import { Path, PathProps } from "react-native-svg";
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 
-interface AnimatedSvgProps extends PathProps {
+interface AnimatedInlineSvgProps extends PathProps {
   progress: Animated.SharedValue<number>;
 }
 
-const AnimatedSvg = ({ progress, ...pathProps }: AnimatedSvgProps) => {
+const AnimatedInlineSvg = ({
+  progress,
+  ...pathProps
+}: AnimatedInlineSvgProps) => {
   const [length, setLength] = useState(0);
   const ref = useRef<typeof AnimatedPath>(null);
   // https://github.com/software-mansion/react-native-reanimated/issues/2766
@@ -30,4 +33,4 @@ const AnimatedSvg = ({ progress, ...pathProps }: AnimatedSvgProps) => {
   );
 };
 
-export default AnimatedSvg;
+export default AnimatedInlineSvg;
