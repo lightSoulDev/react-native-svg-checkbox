@@ -7,7 +7,12 @@ export default function App() {
   const [checked, setCheked] = useState(true);
   return (
     <SafeAreaView style={styles.container}>
-      <SvgCheckbox checked={checked} color="#2c2c2c" />
+      <SvgCheckbox
+        checked={checked}
+        checkmarkColor="#2c2c2c"
+        outlineColor="#2c2c2c"
+        fillColor="#7850A8"
+      />
       <Text
         style={styles.check}
         onPress={() => {
