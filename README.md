@@ -1,5 +1,5 @@
 # react-native-svg-checkbox
 
-![Custom checkmark](./doc/custom.gif)
+![Custom checkmark](./docs/custom.gif)
 
-![Default checkmark](./doc/default.gif)
+![Default checkmark](./docs/default.gif)
