@@ -17,6 +17,9 @@ interface Props {
   color: string;
   checked?: boolean;
 
+  checkDuration?: number;
+  unCheckDuration?: number;
+
   checkmarkPath?: string;
   checkmarkViewBox?: string;
   checkmarkStorkeParams?: StrokeParams;
@@ -36,25 +39,27 @@ const defaultStrokeParams: StrokeParams = {
   strokeLinecap: "round",
 };
 
+const defaultCheckDuration: number = 2000;
+const defaultUnCheckDuration: number = 2000;
+
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // =-              C O M P O N E N T              -=
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 const SvgCheckbox = (props: Props) => {
-  const { checked, color } = props;
   const progress = useSharedValue(0);
 
-  const [strokeParams] = useState(
-    props.checkmarkStorkeParams ?? defaultStrokeParams
-  );
-  const [checkmarkPath] = useState(props.checkmarkPath ?? defaultCheckmarkPath);
-  const [checkmarkViewBox] = useState(
-    props.checkmarkViewBox ?? defaultCheckmarkViewBox
-  );
+  const { checked, color, checkDuration, unCheckDuration } = props;
+  const checkmarkPath = props.checkmarkPath ?? defaultCheckmarkPath;
+  const checkmarkViewBox = props.checkmarkViewBox ?? defaultCheckmarkViewBox;
+  const { strokeWidth, strokeLinejoin, strokeLinecap } =
+    props.checkmarkStorkeParams ?? defaultStrokeParams;
 
   useEffect(() => {
     progress.value = withTiming(checked ? 1 : 0, {
-      duration: checked ? 2000 : 2000,
+      duration: checked
+        ? checkDuration ?? defaultCheckDuration
+        : unCheckDuration ?? defaultUnCheckDuration,
     });
   }, [checked]);
 
@@ -64,9 +69,9 @@ const SvgCheckbox = (props: Props) => {
         progress={progress}
         d={checkmarkPath}
         stroke={color}
-        strokeWidth={strokeParams.strokeWidth}
-        strokeLinejoin={strokeParams.strokeLinejoin}
-        strokeLinecap={strokeParams.strokeLinecap}
+        strokeWidth={strokeWidth}
+        strokeLinejoin={strokeLinejoin}
+        strokeLinecap={strokeLinecap}
       />
     </Svg>
   );
